@@ -4,7 +4,7 @@ async function   getPlayers(){
     let players=[];
         players=Promise.all(await [0,1,2,3,4].map(
             i=> JSDOM.fromURL(`https://sofifa.com/?col=oa&sort=desc&offset=${i*20}`,{
-                runScripts: 'dangerously'
+                runScripts: 'dangerously',
               })
         ))
         .then(doms => {
@@ -26,7 +26,7 @@ async function   getPlayers(){
                     overall:tr.querySelector('td.col-oa span').innerHTML,
                     potential:tr.querySelector('td.col-pt span').innerHTML,
                     club:tr.querySelector('td.col-name a[href^="/team"]').innerHTML,
-                    img:tr.querySelector('td.col-avatar img').src,
+                    img:tr.querySelector('td.col-avatar img').getAttribute('data-src'),
                 }
         
                     )
